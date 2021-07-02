@@ -8,11 +8,6 @@ dotenv.config()
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
-  // app.useGlobalPipes(new ValidationPipe({
-  //   forbidNonWhitelisted: true,
-  //   transform: true,
-  //   whitelist: true,
-  // }));
   await app.listen(process.env.PORT);
 }
 bootstrap();
