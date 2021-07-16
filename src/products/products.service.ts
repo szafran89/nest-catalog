@@ -28,13 +28,18 @@ export class ProductsService {
   }
 
   async update(id: string, updateProductDto: UpdateProductDto) {
-    if (!Types.ObjectId.isValid(id)) {
-      throw new NotFoundException(`Product #${id} not found.`);
+    try {
+      if (!Types.ObjectId.isValid(id)) {
+        throw new NotFoundException(`Product #${id} not found.`);
+      }
+  
+      return await this.productModel
+        .findOneAndUpdate({ _id: id }, { $set: updateProductDto }, { new: true })
+        .exec();
+    } catch (error) {
+      return error.response
     }
 
-    return await this.productModel
-      .findOneAndUpdate({ _id: id }, { $set: updateProductDto }, { new: true })
-      .exec();
   }
 
   async delete(id: string) {
