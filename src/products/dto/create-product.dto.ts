@@ -1,5 +1,12 @@
+import { IsString } from "class-validator"
+
 export class CreateProductDto {
-  readonly name: string
+  @IsString()
+  readonly name: string;
+
+  @IsString()
   readonly description: string
+
+  @IsString()
   readonly image: string
 }

@@ -16,7 +16,8 @@ export class ProductsService {
   }
 
   async findOne (id: string) {
-    const product = await this.productModel.findOne({ _id: id }).exec()
+    const product = await this.productModel.findById(id)
+    // const product = await this.productModel.findOne({ _id: id }).exec()
     if (!product) throw new Error('No product found.')
     return product
   }
