@@ -4,6 +4,7 @@ import { Model, Types } from 'mongoose';
 import { Product } from './entities/product.entity';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { PaginationQueryDto } from 'src/dto/pagination-query.dto';
 
 @Injectable()
 export class ProductsService {
@@ -11,8 +12,13 @@ export class ProductsService {
     @InjectModel('Product') private readonly productModel: Model<Product>,
   ) {}
 
-  findAll () {
-    return this.productModel.find().exec()
+  findAll (paginationQueryDto: PaginationQueryDto) {
+    console.log(paginationQueryDto)
+    return this.productModel
+      .find()
+      .skip(paginationQueryDto.offset)
+      .limit(paginationQueryDto.limit)
+      .exec()
   }
 
   async findOne (id: string) {

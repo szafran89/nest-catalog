@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Param, Body, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Param, Body, Put, Delete, Query } from '@nestjs/common';
 import { ProductsService } from './products.service';
 
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { PaginationQueryDto } from 'src/dto/pagination-query.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -10,8 +11,8 @@ export class ProductsController {
 
   @Get()
   // async index(): Promise<Products> {
-  async index() {
-    return this.productsService.findAll()
+  async index(@Query() paginationQueryDto: PaginationQueryDto) {
+    return this.productsService.findAll(paginationQueryDto)
   }
 
   @Get(':id')
